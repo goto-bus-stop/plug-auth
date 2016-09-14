@@ -1,0 +1,22 @@
+{
+  "name": "plug-auth-server",
+  "description": "Client- and server-side library for \"authenticating\" plug.dj users to your service. Sort of like third-party OAuth for plug.dj, but not OAuth.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "plug",
+    "plug.dj",
+    "login"
+  ],
+  "main": "lib/index",
+  "repository": "goto-bus-stop/plug-auth",
+  "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
+  "author": "Renée Kooi <renee@kooi.me>",
+  "dependencies": {
+    "cookie": "^0.3.1",
+    "got": "^6.5.0",
+    "pify": "^2.3.0",
+    "plug-login": "^0.3.1",
+    "random-string": "^0.1.2"
+  }
+}

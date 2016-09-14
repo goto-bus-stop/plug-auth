@@ -1,0 +1,16 @@
+{
+  "name": "plug-auth-client",
+  "description": "Client library for third-party authentication with plug.dj.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "plug",
+    "plug.dj",
+    "login"
+  ],
+  "main": "rollup.cjs.js",
+  "jsnext:main": "rollup.es.js",
+  "repository": "goto-bus-stop/plug-auth",
+  "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
+  "author": "Renée Kooi <renee@kooi.me>"
+}
