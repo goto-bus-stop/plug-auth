@@ -15,10 +15,30 @@ import { authenticate, httpTransport } from 'plug-auth-client'
 
 authenticate({
   transport: httpTransport({ url: 'https://my-website.com/auth' })
-}).then(() => {
+}).then((result) => {
   console.log('done!')
+  // Token for doing authenticated requests in `result.token`
 }).catch((error) => {
   console.error(`Whelp: ${error.message}`)
+})
+```
+
+plug-auth-client depends on the `fetch` API and Promises, neither of which are
+supported in Internet Explorer. If you want to support Internet Explorer, also
+include [es6-promise] and [whatwg-fetch] in your script:
+
+```js
+// After `npm install --save es6-promise whatwg-fetch`:
+import 'es6-promise'
+import 'whatwg-fetch'
+```
+```js
+// or use AMD:
+define([
+  'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js'
+], function () {
+  // your code
 })
 ```
 
@@ -74,4 +94,6 @@ return a Promise for an object of the shape:
 
 [plug.dj]: https://plug.dj/
 [plug-auth-server]: ../plug-auth-server#readme
+[es6-promise]: https://github.com/stefanpenner/es6-promise
+[whatwg-fetch]: https://github.com/github/fetch
 [MIT]: ./LICENSE
