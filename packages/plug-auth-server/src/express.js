@@ -1,11 +1,18 @@
-export default function express ({ getToken, verify }) {
+/**
+ * Create express middleware.
+ *
+ * @param {Authenticator} auth
+ */
+export default function express ({ getAuthBlurb, verifyBlurb }) {
   return (req, res) => {
     const { stage, user } = req.body || {}
     if (stage === 'token') {
-      getToken(user).then((body) => res.json(body))
+      getAuthBlurb(user).then((body) => res.json(body))
     } else if (stage === 'verify') {
-      verify(user)
-        .then((body) => res.json(body))
+      verifyBlurb(user)
+        .then((body) => {
+          res.json(body)
+        })
         .catch((reason) => {
           res.writeHeader(403)
           res.json(reason)

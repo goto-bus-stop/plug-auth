@@ -1,7 +1,13 @@
 import got from 'got'
+import pify from 'pify'
+import props from 'promise-props'
 import randomString from 'random-string'
+import * as jwtCallback from 'jsonwebtoken'
 
 import usersRepository from './usersRepository'
+
+const signJwt = pify(jwtCallback.sign)
+const verifyJwt = pify(jwtCallback.verify)
 
 const AUTH_BLURB = />_auth_blurb=(.{60})</
 
@@ -10,47 +16,64 @@ function extractBlurb (html) {
   return match && match[1]
 }
 
+/**
+ * @param {Object} opts - Options.
+ * @param {Object} opts.auth - Login details for a plug.dj account. This account will
+ *    be used for the requests needed to verify a plug.dj user.
+ * @param {string} opts.auth.email - plug.dj email address.
+ * @param {string} opts.auth.password - plug.dj password.
+ * @param {string|Buffer} opts.secret - Key used to sign authentication tokens.
+ * @param {UsersRepository} opts.users - Optional - a user repository instance.
+ * @returns {Authenticator}
+ */
 export default function authenticator ({
   auth,
   secret,
-  users = usersRepository(auth)
+  users = usersRepository(auth),
+  signOptions = {},
+  verifyOptions = {}
 }) {
-  const tokens = {}
+  const authBlurbs = {}
 
-  function createJwt (id) {
-    return `test token ${id}`
+  function createJwt (user) {
+    return signJwt(user, secret, signOptions)
   }
 
-  function getToken (id) {
-    tokens[id] = {
+  function getAuthBlurb (id) {
+    authBlurbs[id] = {
       blurb: randomString({ length: 60 })
     }
-    return Promise.resolve(tokens[id])
+    return Promise.resolve(authBlurbs[id])
   }
 
-  function verify (id) {
-    const token = tokens[id]
-    if (!token || !token.blurb) {
+  function verifyBlurb (id) {
+    const authBlurb = authBlurbs[id]
+    if (!authBlurb || !authBlurb.blurb) {
       return Promise.reject(new Error(''))
     }
 
-    const expectedBlurb = token.blurb
-    return users.getUser(id)
-      .then((user) => got(`https://plug.dj/@/${encodeURIComponent(user.slug)}`))
-      .then(({ body }) => extractBlurb(body))
-      .then((blurb) => blurb === expectedBlurb)
-      .then((ok) => ({
-        status: ok ? 'ok' : 'fail',
-        token: ok ? createJwt(id) : null
-      }))
-      .catch((err) => ({
-        status: 'fail',
-        data: [err.message]
-      }))
+    const expectedBlurb = authBlurb.blurb
+    return users.getUser(id).then((user) =>
+      got(`https://plug.dj/@/${encodeURIComponent(user.slug)}`)
+        .then(({ body }) => extractBlurb(body))
+        .then((blurb) => blurb === expectedBlurb)
+        .then((ok) => props({
+          status: ok ? 'ok' : 'fail',
+          token: ok ? createJwt(user) : null
+        }))
+    ).catch((err) => ({
+      status: 'fail',
+      data: [err.message]
+    }))
+  }
+
+  function verifyToken (token) {
+    return verifyJwt(token, secret, verifyOptions)
   }
 
   return {
-    getToken,
-    verify
+    getAuthBlurb,
+    verifyBlurb,
+    verifyToken
   }
 }
