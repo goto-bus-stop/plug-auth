@@ -4,6 +4,7 @@ import props from 'promise-props'
 import randomString from 'random-string'
 import * as jwtCallback from 'jsonwebtoken'
 
+import authedRequest from './authedRequest'
 import usersRepository from './usersRepository'
 
 const signJwt = pify(jwtCallback.sign)
@@ -34,6 +35,13 @@ export default function authenticator ({
   verifyOptions = {}
 }) {
   const authBlurbs = {}
+  let gotAuthed
+  function lazyGotAuthed () {
+    if (!gotAuthed) {
+      gotAuthed = authedRequest(got, auth)
+    }
+    return gotAuthed
+  }
 
   function createJwt (user) {
     return signJwt(user, secret, signOptions)
@@ -46,6 +54,15 @@ export default function authenticator ({
     return Promise.resolve(authBlurbs[id])
   }
 
+  function getProfileBlurb(user) {
+    return lazyGotAuthed()(`https://plug.dj/_/profile/${user.id}/blurb`)
+      .then(({ body }) => body.data[0].blurb)
+      .catch(() =>
+        got(`https://plug.dj/@/${encodeURIComponent(user.slug)}`)
+          .then(({ body }) => extractBlurb(body))
+      )
+  }
+
   function verifyBlurb (id) {
     const authBlurb = authBlurbs[id]
     if (!authBlurb || !authBlurb.blurb) {
@@ -54,8 +71,7 @@ export default function authenticator ({
 
     const expectedBlurb = authBlurb.blurb
     return users.getUser(id).then((user) =>
-      got(`https://plug.dj/@/${encodeURIComponent(user.slug)}`)
-        .then(({ body }) => extractBlurb(body))
+      getProfileBlurb(user)
         .then((blurb) => blurb === expectedBlurb)
         .then((ok) => props({
           status: ok ? 'ok' : 'fail',
