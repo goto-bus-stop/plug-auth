@@ -25,20 +25,6 @@ const dest = {
   server: 'packages/plug-auth-server/lib'
 }
 
-const babelConfigs = {
-  client: {
-    presets: [
-      ['es2015', { modules: false, loose: true }],
-      'regenerator-preset'
-    ]
-  },
-  server: {
-    presets: [
-      'es2015'
-    ]
-  }
-}
-
 gulp.task('clean', () => del('client', 'server', 'dist'))
 
 const logCompiling = () => through.obj((file, enc, cb) => {
@@ -51,7 +37,7 @@ gulp.task('build:client', () =>
   rollup({
     entry: `./${src.client}/index.js`,
     plugins: [
-      rollupBabel(babelConfigs.client),
+      rollupBabel(),
       rollupNodeResolve({
         jsnext: true,
         main: true
@@ -71,7 +57,7 @@ gulp.task('build:server', () =>
     .pipe(newer(dest.server))
     .pipe(logCompiling())
     .pipe(plumber())
-    .pipe(babel(babelConfigs.server))
+    .pipe(babel())
     .pipe(gulp.dest(dest.server))
 )
 gulp.task('build', ['build:client', 'build:server'])
