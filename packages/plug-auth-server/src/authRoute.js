@@ -1,9 +1,9 @@
 /**
- * Create express middleware.
+ * Create an express/koa-style login route handler.
  *
  * @param {Authenticator} auth
  */
-export default function express ({ getAuthBlurb, verifyBlurb }) {
+export default function authRoute ({ getAuthBlurb, verifyBlurb }) {
   return (req, res) => {
     const { stage, user } = req.body || {}
     if (stage === 'token') {

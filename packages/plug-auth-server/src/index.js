@@ -1,9 +1,9 @@
 import authenticator from './authenticator'
-import express from './express'
+import authRoute from './authRoute'
 import usersRepository from './usersRepository'
 
 export {
   authenticator,
-  express,
+  authRoute,
   usersRepository
 }
