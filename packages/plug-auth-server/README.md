@@ -8,12 +8,25 @@ npm install --save plug-auth-server
 
 ## Usage
 
+See the [example app] for a more in-depth example.
+
 ```js
-import { authenticator } from 'plug-auth-server'
+import * as fs from 'fs'
+import express from 'express'
+import {
+  authenticator,
+  authRoute
+} from 'plug-auth-server'
 
-authenticator({
+const secret = fs.readFileSync('./secret.dat')
 
+const engine = authenticator({
+  auth: userAccount,
+  secret: secret
 })
+
+const app = express()
+app.use('/plug-auth', authRoute(engine))
 ```
 
 ## API
@@ -22,8 +35,8 @@ authenticator({
 
 Options:
 
- - `auth`: Login details for a plug.dj account. This account will be used for
-   the requests needed to verify a plug.dj user.
+ - `auth`: Login details for a [plug.dj] account. This account will be used for
+   the requests needed to verify a [plug.dj] user.
 
    - `auth.email`: Email address.
    - `auth.password`: Password.
@@ -48,5 +61,6 @@ app.use('/plug-auth', authRoute(engine))
 [MIT]
 
 [plug.dj]: https://plug.dj/
+[example app]: ./example/app.js
 [httpTransport]: ../plug-auth-client#httpTransport
 [MIT]: ./LICENSE
