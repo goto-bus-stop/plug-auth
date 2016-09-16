@@ -31,12 +31,22 @@ Options:
  - `secret`: Key used to sign authentication tokens.
  - `users`: Optional - a user repository instance.
 
-### express(authenticator: object)
+### authRoute(authenticator: object)
 
+Create an express/koa-style route handler for the authentication endpoint. Works
+well together with plug-auth-client's [`httpTransport`][httpTransport].
+
+```js
+import { authenticator, authRoute } from 'plug-auth-server'
+const engine = authenticator({ ...options })
+const app = express()
+app.use('/plug-auth', authRoute(engine))
+```
 
 ## License
 
 [MIT]
 
 [plug.dj]: https://plug.dj/
+[httpTransport]: ../plug-auth-client#httpTransport
 [MIT]: ./LICENSE

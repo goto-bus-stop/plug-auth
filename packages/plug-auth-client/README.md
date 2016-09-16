@@ -34,7 +34,11 @@ Options:
  - `user`: User ID to authenticate as. Defaults to `API.getUser().id`, which
    is the current user ID on plug.dj.
 
+<a id="httpTransport"></a>
 ### httpTransport(options: object)
+
+Create a transport that talks to a [plug-auth-server]-style HTTP authentication
+endpoint.
 
 Options:
 
@@ -45,6 +49,24 @@ Options:
    to verify the user's identity. Defaults to the value of the `url` option.
  - `verifyUrl`: URL of the endpoint used to verify the user's identity. Defaults
    to the value of the `url` option.
+
+## Custom Transports
+
+Transports are objects with a `getToken` and a `verify` method.
+
+### transport.getToken(options: {user: number})
+
+Generate the verification token that will be put in the user's blurb. Should
+return a Promise for an object of the shape:
+
+ - `blurb`: Token to store in the blurb.
+
+### transport.verify(options: {user: number})
+
+Ask the authentication endpoint to verify the token in the user's blurb. Should
+return a Promise for an object of the shape:
+
+ - `token`: Authentication token.
 
 ## License
 

@@ -21,6 +21,8 @@ export default function authedRequest (request, auth) {
   return (url, options = {}) => sessionToken.then((token) => {
     options.headers = options.headers || {}
     options.headers.cookie = serialize('session', token, {
+      // The default `encode` function URL-encodes characters that make plug.dj
+      // not recognise the session token. We can do without encoding at all.
       encode: (value) => value
     })
     return request(url, options)
