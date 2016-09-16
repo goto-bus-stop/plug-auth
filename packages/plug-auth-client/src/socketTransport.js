@@ -12,7 +12,7 @@ export default function socketTransport (ws) {
     }
   }
 
-  function getToken (user) {
+  function getToken ({ user }) {
     return new Promise((resolve, reject) => {
       ws.addEventListener('message', onMessage)
       write({ stage: 'token', user })
@@ -27,7 +27,7 @@ export default function socketTransport (ws) {
     })
   }
 
-  function verify (user) {
+  function verify ({ user }) {
     write({ stage: 'verify', user })
   }
 
