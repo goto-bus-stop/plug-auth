@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-jwt": "^5.0.0",
+    "plug-auth-server": "../"
+  }
+}
