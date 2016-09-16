@@ -41,6 +41,6 @@ export default async function authenticate ({
   }
 
   if (result && result.token) {
-    return result.token
+    return result
   }
 }
