@@ -12,5 +12,8 @@
   "jsnext:main": "rollup.es.js",
   "repository": "goto-bus-stop/plug-auth",
   "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
-  "author": "Renée Kooi <renee@kooi.me>"
+  "author": "Renée Kooi <renee@kooi.me>",
+  "dependencies": {
+    "unescape": "^0.1.1"
+  }
 }

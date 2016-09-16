@@ -1,4 +1,5 @@
 /* global API */
+import unescape from 'unescape'
 import fetch from './fetch'
 
 const jsonHeaders = {
@@ -8,7 +9,7 @@ const jsonHeaders = {
 
 function getBlurb () {
   return fetch('/_/users/me', { credentials: 'same-origin' })
-    .then(res => res.data[0].blurb)
+    .then(res => unescape(res.data[0].blurb))
 }
 
 function setBlurb (blurb) {
