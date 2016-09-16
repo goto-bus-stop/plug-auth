@@ -28,13 +28,21 @@ function extractBlurb (html) {
  * @returns {Authenticator}
  */
 export default function authenticator ({
-  auth,
+  auth = {},
   secret,
-  users = usersRepository(auth),
+  users,
+  host = 'https://plug.dj',
   signOptions = {},
   verifyOptions = {}
 }) {
-  const authBlurbs = {}
+  if (!auth.host) {
+    auth.host = host
+  }
+
+  if (!users) {
+    users = usersRepository(auth)
+  }
+
   let gotAuthed
   function lazyGotAuthed () {
     if (!gotAuthed) {
@@ -47,6 +55,7 @@ export default function authenticator ({
     return signJwt(user, secret, signOptions)
   }
 
+  const authBlurbs = {}
   function getAuthBlurb (id) {
     authBlurbs[id] = {
       blurb: randomString({ length: 60 })
@@ -54,11 +63,11 @@ export default function authenticator ({
     return Promise.resolve(authBlurbs[id])
   }
 
-  function getProfileBlurb(user) {
-    return lazyGotAuthed()(`https://plug.dj/_/profile/${user.id}/blurb`)
+  function getProfileBlurb (user) {
+    return lazyGotAuthed()(`${host}/_/profile/${user.id}/blurb`)
       .then(({ body }) => body.data[0].blurb)
       .catch(() =>
-        got(`https://plug.dj/@/${encodeURIComponent(user.slug)}`)
+        got(`${host}/@/${encodeURIComponent(user.slug)}`)
           .then(({ body }) => extractBlurb(body))
       )
   }
