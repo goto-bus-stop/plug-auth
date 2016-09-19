@@ -26,16 +26,12 @@ export default function usersRepository (auth) {
     auth.host = 'https://plug.dj'
   }
 
-  const cache = {}
   const gotAuthed = authedRequest(got, auth)
 
   function getUser (id) {
     id = Number(id)
     if (!isFinite(id)) {
       return Promise.reject()
-    }
-    if (cache[id]) {
-      return Promise.resolve(cache[id])
     }
 
     return gotAuthed(`${auth.host}/_/users/${id}`, {
@@ -44,8 +40,7 @@ export default function usersRepository (auth) {
       if (body.status !== 'ok') {
         throw new Error(body.data[0])
       }
-      cache[id] = body.data[0]
-      return cache[id]
+      return body.data[0]
     })
   }
 
