@@ -31,7 +31,7 @@ export default function usersRepository (auth) {
   function getUser (id) {
     id = Number(id)
     if (!isFinite(id)) {
-      return Promise.reject()
+      return Promise.reject(new Error('Expected a numeric user ID.'))
     }
 
     return gotAuthed(`${auth.host}/_/users/${id}`, {

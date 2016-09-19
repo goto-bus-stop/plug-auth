@@ -22,6 +22,7 @@ const corsInstance = cors({
 })
 
 app.use(bodyParser())
+
 // Browsers may "preflight" requests to check if sending us requests is okay.
 // Those preflight requests use the OPTIONS method.
 // In this case we'll tell the browser that attempting to send requests to ANY
