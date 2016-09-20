@@ -1,7 +1,8 @@
-var pac = require('./')
+const authenticate = require('../').authenticate
+const httpTransport = require('../').httpTransport
 
-pac.authenticate({
-  transport: pac.httpTransport({ url: 'http://localhost:3456/auth/login' })
+authenticate({
+  transport: httpTransport({ url: 'http://localhost:3456/auth/login' })
 }).then((result) =>
     fetch('http://localhost:3456', {
       headers: { authorization: `Bearer ${result.token}` }

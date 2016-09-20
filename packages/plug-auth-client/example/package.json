@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "dependencies": {
+    "plug-auth-client": "../"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "browserify app.js > bundle.js"
+  }
+}
