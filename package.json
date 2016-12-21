@@ -25,7 +25,7 @@
     "through2": "^2.0.1"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run install-packages && npm run build",
     "client:install": "cd packages/plug-auth-client && npm install",
     "server:install": "cd packages/plug-auth-server && npm install",
     "install-packages": "npm run client:install && npm run server:install",
