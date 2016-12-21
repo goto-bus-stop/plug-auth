@@ -26,6 +26,9 @@
   },
   "scripts": {
     "prepublish": "npm run build",
+    "client:install": "cd packages/plug-auth-client && npm install",
+    "server:install": "cd packages/plug-auth-server && npm install",
+    "install-packages": "npm run client:install && npm run server:install",
     "build": "gulp",
     "lint": "standard packages/*/src/**/*.js gulpfile.js",
     "ava": "ava packages/*/test/*.js",

@@ -1,6 +1,8 @@
 language: node_js
 sudo: false
 
+before_script: npm run install-packages
+
 node_js:
   - "4"
   - "6"
