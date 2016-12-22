@@ -5,6 +5,7 @@
     "babel-eslint": "^7.1.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.14.0",
+    "cross-env": "^3.1.3",
     "del": "^2.2.1",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
@@ -31,7 +32,7 @@
     "install-packages": "npm run client:install && npm run server:install",
     "build": "gulp",
     "lint": "standard packages/*/src/**/*.js gulpfile.js",
-    "ava": "ava packages/*/test/*.js",
+    "ava": "cross-env AVA=1 ava packages/*/test/*.js",
     "test": "npm run ava && npm run lint"
   },
   "ava": {
