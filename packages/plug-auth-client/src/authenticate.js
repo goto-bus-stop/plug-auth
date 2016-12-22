@@ -1,5 +1,5 @@
 /* global API */
-import unescape from 'unescape'
+import { unescape } from 'plug-message-split'
 import fetch from './fetch'
 
 const jsonHeaders = {
