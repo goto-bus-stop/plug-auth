@@ -26,7 +26,7 @@ test('getAuthBlurb promises a string', async (t) => {
   const auth = make()
   const user = testUsers[0]
   const promise = auth.getAuthBlurb(user.id)
-  t.true(promise instanceof Promise)
+  t.is(typeof promise.then, 'function')
   const result = await promise
   t.is(typeof result, 'object')
   t.is(typeof result.blurb, 'string')
