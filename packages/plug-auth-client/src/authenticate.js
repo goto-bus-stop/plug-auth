@@ -21,7 +21,7 @@ function setBlurb (blurb) {
   })
 }
 
-export default async function authenticate ({
+async function authenticate ({
   user = API.getUser().id,
   transport
 } = {}) {
@@ -45,3 +45,5 @@ export default async function authenticate ({
     return result
   }
 }
+
+export default authenticate
