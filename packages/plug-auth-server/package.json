@@ -1,7 +1,7 @@
 {
   "name": "plug-auth-server",
   "description": "Client- and server-side library for \"authenticating\" plug.dj users to your service. Sort of like third-party OAuth for plug.dj, but not OAuth.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "keywords": [
     "plug",
