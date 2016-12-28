@@ -1,5 +1,6 @@
 {
   "private": true,
+  "version": "1.0.0",
   "devDependencies": {
     "ava": "^0.17.0",
     "babel-eslint": "^7.1.1",
@@ -26,6 +27,9 @@
     "through2": "^2.0.1"
   },
   "scripts": {
+    "client:version": "cd packages/plug-auth-client && npm version",
+    "server:version": "cd packages/plug-auth-server && npm version",
+    "preversion": "sh ./version.sh",
     "prepublish": "npm run install-packages && npm run build",
     "client:install": "cd packages/plug-auth-client && npm install",
     "server:install": "cd packages/plug-auth-server && npm install",
