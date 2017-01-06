@@ -19,7 +19,7 @@
     "gulp-watch": "^4.3.8",
     "regenerator-preset": "^0.9.3",
     "regenerator-runtime": "^0.10.0",
-    "rollup": "^0.40.0",
+    "rollup": "^0.41.0",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
