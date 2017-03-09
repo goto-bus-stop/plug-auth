@@ -57,6 +57,10 @@ export default function authenticator ({
 
   const authBlurbs = {}
   function getAuthBlurb (id) {
+    if (!id) {
+      throw new TypeError('Expected a user ID')
+    }
+
     authBlurbs[id] = {
       blurb: randomString({ length: 60 })
     }
@@ -75,7 +79,7 @@ export default function authenticator ({
   function verifyBlurb (id) {
     const authBlurb = authBlurbs[id]
     if (!authBlurb || !authBlurb.blurb) {
-      return Promise.reject(new Error(''))
+      return Promise.reject(new Error('No blurb token found for that user.'))
     }
 
     const expectedBlurb = authBlurb.blurb
