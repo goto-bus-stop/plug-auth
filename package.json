@@ -23,7 +23,7 @@
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^8.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "standard": "^8.0.0",
+    "standard": "^9.0.2",
     "through2": "^2.0.1"
   },
   "scripts": {
