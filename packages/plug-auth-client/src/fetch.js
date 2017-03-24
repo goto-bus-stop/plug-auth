@@ -1,4 +1,4 @@
-/* global fetch */
+import unfetch from 'unfetch'
 
 function rejectNonOK (response) {
   if (response.status !== 200) {
@@ -12,7 +12,7 @@ function rejectNonOK (response) {
 }
 
 export default function wrappedFetch (url, options) {
-  return fetch(url, options)
+  return unfetch(url, options)
     .then(rejectNonOK)
     .then(res => res.json())
 }
