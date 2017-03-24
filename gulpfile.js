@@ -61,7 +61,7 @@ gulp.task('build:client', () =>
       format: 'umd',
       dest: `${dest.client}/rollup.js`,
       moduleName: 'plugAuth'
-    }),
+    })
   ]))
 )
 
