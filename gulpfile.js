@@ -44,12 +44,25 @@ gulp.task('build:client', () =>
       }),
       rollupCommonjs()
     ]
-  }).then(bundle => Promise.all(
-    ['amd', 'es', 'cjs'].map(format => bundle.write({
-      format,
-      dest: `${dest.client}/rollup.${format}.js`
-    }))
-  ))
+  }).then(bundle => Promise.all([
+    bundle.write({
+      format: 'amd',
+      dest: `${dest.client}/rollup.amd.js`
+    }),
+    bundle.write({
+      format: 'cjs',
+      dest: `${dest.client}/rollup.cjs.js`
+    }),
+    bundle.write({
+      format: 'es',
+      dest: `${dest.client}/rollup.es.js`
+    }),
+    bundle.write({
+      format: 'umd',
+      dest: `${dest.client}/rollup.js`,
+      moduleName: 'plugAuth'
+    }),
+  ]))
 )
 
 gulp.task('build:server', () =>
