@@ -23,20 +23,18 @@ authenticate({
 })
 ```
 
-plug-auth-client depends on the `fetch` API and Promises, neither of which are
-supported in Internet Explorer. If you want to support Internet Explorer, also
-include [es6-promise] and [whatwg-fetch] in your script:
+plug-auth-client uses Promises, which are not supported in Internet Explorer. If
+you want to support Internet Explorer, also include [es6-promise][] in your
+script:
 
 ```js
-// After `npm install --save es6-promise whatwg-fetch`:
+// After `npm install --save es6-promise`:
 import 'es6-promise'
-import 'whatwg-fetch'
 ```
 ```js
 // or use AMD:
 define([
-  'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js'
+  'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js'
 ], function () {
   // your code
 })
