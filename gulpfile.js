@@ -87,13 +87,11 @@ gulp.task('watch', () => {
 gulp.task('build:dist', ['build:client'], () =>
   gulp.src(`${dest.client}/rollup.js`)
     .pipe(uglify({
+      toplevel: true,
       compress: {
-        screw_ie8: true,
         pure_getters: true,
         unsafe: true
-      },
-      output: { screw_ie8: true },
-      mangle: { toplevel: true }
+      }
     }))
     .pipe(rename('rollup.min.js'))
     .pipe(gulp.dest(dest.client))
