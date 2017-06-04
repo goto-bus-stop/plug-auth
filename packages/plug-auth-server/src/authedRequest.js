@@ -1,6 +1,6 @@
-import pify from 'pify'
-import login from 'plug-login'
-import { serialize } from 'cookie'
+const pify = require('pify')
+const login = require('plug-login')
+const { serialize } = require('cookie')
 
 /**
  * Get the plug.dj session token from a plug-login result.
@@ -13,7 +13,7 @@ function getSessionCookie (host, result) {
   }
 }
 
-export default function authedRequest (request, auth) {
+module.exports = function authedRequest (request, auth) {
   const { host, email, password } = auth
   const sessionToken = pify(login)(email, password)
     .then((result) => getSessionCookie(host, result))

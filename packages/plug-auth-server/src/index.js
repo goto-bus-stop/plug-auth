@@ -1,8 +1,8 @@
-import authenticator from './authenticator'
-import authRoute from './authRoute'
-import usersRepository from './usersRepository'
+const authenticator = require('./authenticator')
+const authRoute = require('./authRoute')
+const usersRepository = require('./usersRepository')
 
-export {
+module.exports = {
   authenticator,
   authRoute,
   usersRepository

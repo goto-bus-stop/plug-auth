@@ -1,11 +1,11 @@
-import got from 'got'
-import pify from 'pify'
-import props from 'promise-props'
-import randomString from 'random-string'
-import * as jwtCallback from 'jsonwebtoken'
+const got = require('got')
+const pify = require('pify')
+const props = require('promise-props')
+const randomString = require('random-string')
+const jwtCallback = require('jsonwebtoken')
 
-import authedRequest from './authedRequest'
-import usersRepository from './usersRepository'
+const authedRequest = require('./authedRequest')
+const usersRepository = require('./usersRepository')
 
 const signJwt = pify(jwtCallback.sign)
 const verifyJwt = pify(jwtCallback.verify)
@@ -27,7 +27,7 @@ function extractBlurb (html) {
  * @param {UsersRepository} opts.users - Optional - a user repository instance.
  * @returns {Authenticator}
  */
-export default function authenticator ({
+module.exports = function authenticator ({
   auth = {},
   secret,
   users,

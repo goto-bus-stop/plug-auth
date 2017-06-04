@@ -1,5 +1,5 @@
-import got from 'got'
-import authedRequest from './authedRequest'
+const got = require('got')
+const authedRequest = require('./authedRequest')
 
 /**
  * @typedef {Object} User
@@ -21,7 +21,7 @@ import authedRequest from './authedRequest'
  *
  * @returns {UsersRepository}
  */
-export default function usersRepository (auth) {
+module.exports = function usersRepository (auth) {
   if (!auth.host) {
     auth.host = 'https://plug.dj'
   }

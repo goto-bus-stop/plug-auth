@@ -3,7 +3,7 @@
  *
  * @param {Authenticator} auth
  */
-export default function authRoute ({ getAuthBlurb, verifyBlurb }) {
+module.exports = function authRoute ({ getAuthBlurb, verifyBlurb }) {
   return (req, res) => {
     const { stage, user } = req.body || {}
     if (stage === 'token') {
