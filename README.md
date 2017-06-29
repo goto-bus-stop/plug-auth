@@ -1,5 +1,7 @@
 # plug-auth
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/goto-bus-stop/plug-auth.svg)](https://greenkeeper.io/)
+
 JavaScript libraries for third-party authentication with plug.dj.
 
 ## On the client
