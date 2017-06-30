@@ -11,19 +11,14 @@
     "express": "^4.14.0",
     "fast-async": "^6.2.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-newer": "^1.2.0",
-    "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.8",
     "rollup": "^0.42.0",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^8.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "standard": "^10.0.0",
-    "through2": "^2.0.1"
+    "standard": "^10.0.0"
   },
   "scripts": {
     "postversion": "node version.js",

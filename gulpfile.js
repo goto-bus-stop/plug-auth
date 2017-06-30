@@ -1,20 +1,13 @@
 const gulp = require('gulp')
 const del = require('del')
-const babel = require('gulp-babel')
 const watch = require('gulp-watch')
-const plumber = require('gulp-plumber')
-const newer = require('gulp-newer')
 const uglify = require('gulp-uglify')
 const rename = require('gulp-rename')
-const through = require('through2')
-const log = require('gulp-util').log
-const colors = require('gulp-util').colors
-const relative = require('path').relative
-
 const rollup = require('rollup').rollup
 const rollupBabel = require('rollup-plugin-babel')
 const rollupNodeResolve = require('rollup-plugin-node-resolve')
 const rollupCommonjs = require('rollup-plugin-commonjs')
+const serverMeta = require('./packages/plug-auth-server/package.json')
 
 const src = {
   client: 'packages/plug-auth-client/src',
@@ -22,16 +15,10 @@ const src = {
 }
 const dest = {
   client: 'packages/plug-auth-client',
-  server: 'packages/plug-auth-server/lib'
+  server: 'packages/plug-auth-server'
 }
 
-gulp.task('clean', () => del('client', 'server', 'dist'))
-
-const logCompiling = () => through.obj((file, enc, cb) => {
-  const path = relative(__dirname, file.path)
-  log(`Compiling '${colors.cyan(path)}'...`)
-  cb(null, file)
-})
+gulp.task('clean', () => del(`${dest.client}/rollup*.js`, `${dest.server}/index.js`))
 
 gulp.task('build:client', () =>
   rollup({
@@ -66,13 +53,19 @@ gulp.task('build:client', () =>
 )
 
 gulp.task('build:server', () =>
-  gulp.src(`${src.server}/**/*.js`)
-    .pipe(newer(dest.server))
-    .pipe(logCompiling())
-    .pipe(plumber())
-    .pipe(babel())
-    .pipe(gulp.dest(dest.server))
+  rollup({
+    entry: `./${src.server}/index.js`,
+    external: Object.keys(serverMeta.dependencies),
+    plugins: [
+      rollupBabel(),
+      rollupCommonjs()
+    ]
+  }).then((bundle) => bundle.write({
+    format: 'cjs',
+    dest: `${dest.server}/index.js`
+  }))
 )
+
 gulp.task('build', ['build:client', 'build:server'])
 
 gulp.task('watch', () => {
