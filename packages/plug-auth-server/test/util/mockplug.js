@@ -6,6 +6,24 @@ import express from 'express'
 export default function mockplug (testUsers) {
   const app = express()
 
+  app.get('/_/mobile/init', (req, res) => {
+    res.setHeader('set-cookie', 'session=dummy-session-token')
+    res.json({
+      status: 'ok',
+      data: [
+        { c: 'abcdefghijklmnopqrstuvwxyz' }
+      ]
+    })
+  })
+
+  app.post('/_/auth/login', (req, res) => {
+    res.setHeader('set-cookie', 'session=dummy-session-token')
+    res.json({
+      status: 'ok',
+      data: [{}]
+    })
+  })
+
   app.get('/_/profile/:id/blurb', (req, res) => {
     const user = testUsers.find((u) => u.id === parseInt(req.params.id, 10))
     if (!user) {
