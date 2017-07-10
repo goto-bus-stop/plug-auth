@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "plug-auth",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "devDependencies": {
     "ava": "^0.20.0",
     "babel-eslint": "^7.1.1",
