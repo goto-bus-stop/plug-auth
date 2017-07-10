@@ -21,29 +21,24 @@ function setBlurb (blurb) {
   })
 }
 
-async function authenticate ({
+function authenticate ({
   user = API.getUser().id,
   transport
 } = {}) {
   let oldBlurb
-  let result
 
-  try {
-    const data = await transport.getToken({ user })
-    oldBlurb = await getBlurb()
-    await setBlurb(`_auth_blurb=${data.blurb}`)
-    result = await transport.verify({ user })
-  } catch (e) {
-    throw e
-  } finally {
-    if (oldBlurb) {
-      await setBlurb(oldBlurb)
-    }
-  }
-
-  if (result && result.token) {
-    return result
-  }
+  return transport.getToken({ user })
+    .then((data) => {
+      return getBlurb().then((blurb) => {
+        oldBlurb = blurb
+        return setBlurb(`_auth_blurb=${data.blurb}`)
+      })
+    })
+    .then(() => transport.verify({ user }))
+    .then(
+      (result) => setBlurb(oldBlurb).then(() => result && result.token ? result : null),
+      (err) => setBlurb(oldBlurb).then(() => { throw err })
+    )
 }
 
 export default authenticate
