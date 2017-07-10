@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "plug-auth",
   "version": "1.1.1",
   "devDependencies": {
     "ava": "^0.20.0",
