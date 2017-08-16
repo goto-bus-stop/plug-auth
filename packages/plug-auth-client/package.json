@@ -16,6 +16,6 @@
   "author": "Renée Kooi <renee@kooi.me>",
   "devDependencies": {
     "plug-message-split": "^1.0.0",
-    "unfetch": "^2.1.2"
+    "unfetch": "^3.0.0"
   }
 }
