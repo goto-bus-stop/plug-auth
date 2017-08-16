@@ -21,7 +21,7 @@
     "standard": "^10.0.0"
   },
   "scripts": {
-    "postversion": "node version.js",
+    "version": "node version.js",
     "prepublish": "npm run install-packages && npm run build",
     "client:install": "cd packages/plug-auth-client && npm install",
     "server:install": "cd packages/plug-auth-server && npm install",
