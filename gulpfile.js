@@ -22,7 +22,7 @@ gulp.task('clean', () => del(`${dest.client}/rollup*.js`, `${dest.server}/index.
 
 gulp.task('build:client', () =>
   rollup({
-    entry: `./${src.client}/index.js`,
+    input: `./${src.client}/index.js`,
     plugins: [
       rollupBabel(),
       rollupNodeResolve({
@@ -34,27 +34,27 @@ gulp.task('build:client', () =>
   }).then(bundle => Promise.all([
     bundle.write({
       format: 'amd',
-      dest: `${dest.client}/rollup.amd.js`
+      file: `${dest.client}/rollup.amd.js`
     }),
     bundle.write({
       format: 'cjs',
-      dest: `${dest.client}/rollup.cjs.js`
+      file: `${dest.client}/rollup.cjs.js`
     }),
     bundle.write({
       format: 'es',
-      dest: `${dest.client}/rollup.es.js`
+      file: `${dest.client}/rollup.es.js`
     }),
     bundle.write({
       format: 'umd',
-      dest: `${dest.client}/rollup.js`,
-      moduleName: 'plugAuth'
+      file: `${dest.client}/rollup.js`,
+      name: 'plugAuth'
     })
   ]))
 )
 
 gulp.task('build:server', () =>
   rollup({
-    entry: `./${src.server}/index.js`,
+    input: `./${src.server}/index.js`,
     external: Object.keys(serverMeta.dependencies),
     plugins: [
       rollupBabel(),
@@ -62,7 +62,7 @@ gulp.task('build:server', () =>
     ]
   }).then((bundle) => bundle.write({
     format: 'cjs',
-    dest: `${dest.server}/index.js`
+    file: `${dest.server}/index.js`
   }))
 )
 
