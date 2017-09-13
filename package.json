@@ -3,7 +3,6 @@
   "name": "plug-auth",
   "version": "1.1.2",
   "devDependencies": {
-    "ava": "^0.23.0",
     "babel-core": "^7.0.0-beta.0",
     "babel-eslint": "^8.0.0",
     "babel-preset-es2015": "^7.0.0-beta.0",
@@ -19,7 +18,8 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "standard": "^10.0.0"
+    "standard": "^10.0.0",
+    "tape": "^4.8.0"
   },
   "scripts": {
     "version": "node version.js",
@@ -29,13 +29,8 @@
     "install-packages": "npm run client:install && npm run server:install",
     "build": "gulp",
     "lint": "standard packages/*/src/**/*.js gulpfile.js",
-    "ava": "cross-env AVA=1 ava packages/*/test/*.js",
-    "test": "npm run ava && npm run lint"
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
+    "tape": "cross-env TESTING=1 tape -r babel-register packages/*/test/*.js",
+    "test": "npm run tape && npm run lint"
   },
   "standard": {
     "parser": "babel-eslint"

@@ -1,4 +1,4 @@
-const modules = process.env.AVA ? 'commonjs' : false
+const modules = process.env.TESTING ? 'commonjs' : false
 
 module.exports = {
   presets: [
