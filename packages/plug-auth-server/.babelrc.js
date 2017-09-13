@@ -1,7 +1,14 @@
 const modules = process.env.TESTING ? 'commonjs' : false
+const targetVersion = process.env.TESTING ? 'current' : 4
 
 module.exports = {
   presets: [
-    ['es2015', { modules: modules, loose: true }]
+    ['env', {
+      modules: modules,
+      loose: true,
+      targets: {
+        node: targetVersion
+      }
+    }]
   ]
 }

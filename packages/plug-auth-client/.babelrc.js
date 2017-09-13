@@ -2,6 +2,10 @@ const modules = process.env.TESTING ? 'commonjs' : false
 
 module.exports = {
   presets: [
-    ['es2015', { loose: true, modules: modules }]
+    ['env', {
+      loose: true,
+      modules: modules,
+      forceAllTransforms: true
+    }]
   ]
 }
