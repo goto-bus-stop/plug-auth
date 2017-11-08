@@ -15,9 +15,9 @@
   "dependencies": {
     "cookie": "^0.3.1",
     "got": "^7.1.0",
-    "jsonwebtoken": "^7.4.2",
+    "jsonwebtoken": "^8.1.0",
     "pify": "^3.0.0",
-    "plug-login": "^1.1.1",
+    "plug-login": "^1.2.0",
     "promise-props": "^1.0.0",
     "random-string": "^0.2.0"
   }

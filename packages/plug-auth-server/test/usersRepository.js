@@ -1,4 +1,4 @@
-import test from 'ava'
+import test from 'tape'
 
 import usersRepository from '../src/usersRepository'
 import mockplug from './util/mockplug'
@@ -9,27 +9,40 @@ const creds = {
   password: 'it_s_fake'
 }
 
-test.beforeEach(async (t) => {
-  t.context = await mockplug(testUsers)
-})
-test.afterEach((t) => new Promise((resolve) => {
-  t.context.close(() => resolve())
-}))
+function testPlug (name, fn) {
+  return test(name, (t) => {
+    mockplug(testUsers).then((plug) => {
+      t.context = plug
+      t.realEnd = t.end
+      t.end = () => {
+        plug.close(() => {
+          t.realEnd()
+        })
+      }
+      fn(t)
+    })
+  })
+}
 
-test('Fails for nonexistent users', async (t) => {
+testPlug('Fails for nonexistent users', (t) => {
   const { getUser } = usersRepository(Object.assign(
     { host: t.context.url },
     creds
   ))
-  await t.throws(getUser(777777))
+  getUser(777777).then(t.fail, (err) => {
+    t.pass()
+    t.end()
+  })
 })
 
-test('Returns a user object for existing user IDs', async (t) => {
+testPlug('Returns a user object for existing user IDs', (t) => {
   const { getUser } = usersRepository(Object.assign(
     { host: t.context.url },
     creds
   ))
-  const user = await getUser(64356)
-  t.is(user.id, 64356)
-  t.is(user.slug, 'mnopqr')
+  getUser(64356).then((user) => {
+    t.is(user.id, 64356)
+    t.is(user.slug, 'mnopqr')
+    t.end()
+  }, t.fail)
 })

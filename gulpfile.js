@@ -1,6 +1,5 @@
 const gulp = require('gulp')
 const del = require('del')
-const watch = require('gulp-watch')
 const uglify = require('gulp-uglify')
 const rename = require('gulp-rename')
 const rollup = require('rollup').rollup
@@ -18,18 +17,20 @@ const dest = {
   server: 'packages/plug-auth-server'
 }
 
-gulp.task('clean', () => del(`${dest.client}/rollup*.js`, `${dest.server}/index.js`))
+function clean () {
+  return del(`${dest.client}/rollup*.js`, `${dest.server}/index.js`)
+}
 
-gulp.task('build:client', () =>
-  rollup({
+function buildClient () {
+  return rollup({
     input: `./${src.client}/index.js`,
     plugins: [
+      rollupCommonjs(),
       rollupBabel(),
       rollupNodeResolve({
         jsnext: true,
         main: true
-      }),
-      rollupCommonjs()
+      })
     ]
   }).then(bundle => Promise.all([
     bundle.write({
@@ -50,10 +51,10 @@ gulp.task('build:client', () =>
       name: 'plugAuth'
     })
   ]))
-)
+}
 
-gulp.task('build:server', () =>
-  rollup({
+function buildServer () {
+  return rollup({
     input: `./${src.server}/index.js`,
     external: Object.keys(serverMeta.dependencies),
     plugins: [
@@ -64,21 +65,17 @@ gulp.task('build:server', () =>
     format: 'cjs',
     file: `${dest.server}/index.js`
   }))
-)
+}
 
-gulp.task('build', ['build:client', 'build:server'])
+const build = gulp.parallel(buildClient, buildServer)
 
-gulp.task('watch', () => {
-  watch(`${src.client}/**/*.js`, () => {
-    gulp.start('build:client')
-  })
-  watch(`${src.server}/**/*.js`, () => {
-    gulp.start('build:server')
-  })
-})
+function watch () {
+  gulp.watch(`${src.client}/**/*.js`, buildClient)
+  gulp.watch(`${src.server}/**/*.js`, buildServer)
+}
 
-gulp.task('build:dist', ['build:client'], () =>
-  gulp.src(`${dest.client}/rollup.js`)
+function minifyDist () {
+  return gulp.src(`${dest.client}/rollup.js`)
     .pipe(uglify({
       toplevel: true,
       compress: {
@@ -88,6 +85,14 @@ gulp.task('build:dist', ['build:client'], () =>
     }))
     .pipe(rename('rollup.min.js'))
     .pipe(gulp.dest(dest.client))
-)
+}
 
-gulp.task('default', ['build', 'build:dist'])
+const buildDist = gulp.series(buildClient, minifyDist)
+
+module.exports = {
+  build,
+  buildDist,
+  clean,
+  watch,
+  default: gulp.parallel(build, buildDist)
+}
