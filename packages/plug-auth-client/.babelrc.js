@@ -2,7 +2,7 @@ const modules = process.env.TESTING ? 'commonjs' : false
 
 module.exports = {
   presets: [
-    ['env', {
+    ['@babel/env', {
       loose: true,
       modules: modules,
       forceAllTransforms: true

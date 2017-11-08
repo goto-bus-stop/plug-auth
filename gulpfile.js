@@ -24,12 +24,12 @@ gulp.task('build:client', () =>
   rollup({
     input: `./${src.client}/index.js`,
     plugins: [
+      rollupCommonjs(),
       rollupBabel(),
       rollupNodeResolve({
         jsnext: true,
         main: true
-      }),
-      rollupCommonjs()
+      })
     ]
   }).then(bundle => Promise.all([
     bundle.write({
