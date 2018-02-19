@@ -17,7 +17,7 @@
     "rollup-plugin-babel": "^4.0.0-beta.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "standard": "^10.0.3",
+    "standard": "^11.0.0",
     "tape": "^4.8.0"
   },
   "scripts": {
