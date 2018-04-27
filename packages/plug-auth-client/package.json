@@ -1,7 +1,7 @@
 {
   "name": "plug-auth-client",
   "description": "Client library for third-party authentication with plug.dj.",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "license": "MIT",
   "keywords": [
     "plug",
