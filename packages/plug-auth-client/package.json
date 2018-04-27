@@ -15,7 +15,7 @@
   "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
   "author": "Renée Kooi <renee@kooi.me>",
   "devDependencies": {
-    "plug-message-split": "^1.0.0",
+    "plug-message-split": "^1.1.1",
     "unfetch": "^3.0.0"
   }
 }
