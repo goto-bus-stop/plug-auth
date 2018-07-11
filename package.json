@@ -3,7 +3,7 @@
   "name": "plug-auth",
   "version": "1.2.0",
   "devDependencies": {
-    "@babel/core": "7.0.0-beta.49",
+    "@babel/core": "7.0.0-beta.53",
     "@babel/preset-env": "7.0.0-beta.49",
     "@babel/register": "7.0.0-beta.49",
     "babel-eslint": "^8.2.3",
