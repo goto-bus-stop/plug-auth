@@ -4,7 +4,7 @@
   "version": "1.2.0",
   "devDependencies": {
     "@babel/core": "7.0.0-beta.49",
-    "@babel/preset-env": "7.0.0-beta.49",
+    "@babel/preset-env": "7.0.0-beta.53",
     "@babel/register": "7.0.0-beta.49",
     "babel-eslint": "^8.2.3",
     "cross-env": "^5.1.6",
