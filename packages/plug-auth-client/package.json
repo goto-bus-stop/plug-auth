@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "plug-message-split": "^1.1.1",
+    "terser": "^3.8.1",
     "unfetch": "^3.1.1"
   }
 }
