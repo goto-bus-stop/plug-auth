@@ -8,14 +8,17 @@
     "plug.dj",
     "login"
   ],
-  "main": "rollup.cjs.js",
-  "jsnext:main": "rollup.es.js",
-  "module": "rollup.es.js",
+  "main": "dist/plug-auth-client.js",
+  "module": "dist/plug-auth-client.mjs",
+  "unpkg": "dist/plug-auth-client.umd.js",
   "repository": "goto-bus-stop/plug-auth",
   "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
   "author": "Renée Kooi <renee@kooi.me>",
+  "scripts": {
+    "build": "rollup -c"
+  },
   "devDependencies": {
     "plug-message-split": "^1.1.1",
-    "unfetch": "^3.0.0"
+    "unfetch": "^3.1.1"
   }
 }

@@ -3,9 +3,9 @@ sudo: false
 
 before_script: npm run install-packages
 
+install: npm install
+
 node_js:
   - 10
   - 8
-  - 7
   - 6
-  - 4
