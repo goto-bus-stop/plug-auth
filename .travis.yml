@@ -6,6 +6,6 @@ before_script: npm run install-packages
 install: npm install
 
 node_js:
+  - 12
   - 10
   - 8
-  - 6
