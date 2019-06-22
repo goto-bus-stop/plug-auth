@@ -16,13 +16,9 @@ export default {
   plugins: [
     commonjs(),
     babel(),
-    resolve({
-      jsnext: true,
-      module: true,
-      main: true
-    }),
+    resolve(),
     {
-      transformChunk (source, options) {
+      renderChunk (source, _, options) {
         if (options.format !== 'umd') return null
         return minify(source)
       }

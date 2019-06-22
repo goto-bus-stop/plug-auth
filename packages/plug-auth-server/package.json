@@ -14,8 +14,8 @@
   "bugs": "https://github.com/goto-bus-stop/plug-auth/issues",
   "author": "Renée Kooi <renee@kooi.me>",
   "dependencies": {
-    "cookie": "^0.3.1",
-    "got": "^8.3.2",
+    "cookie": "^0.4.0",
+    "got": "^9.0.0",
     "jsonwebtoken": "^8.3.0",
     "pify": "^4.0.0",
     "plug-login": "^2.1.0",
